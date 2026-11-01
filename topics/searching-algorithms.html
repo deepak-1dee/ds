@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Searching Algorithms - C Programs</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <div class="question">
+    <h3>1. Enter an Integer Array from the User, Enter an Integer Value and Perform Linear Search Algorithm Through Iteration</h3>
+    <button onclick="toggleCode('q1')">Show/Hide Code</button>
+    <pre id="q1">
+#include &lt;stdio.h&gt;
+
+int main() {
+    int a[100], n, key, found = -1;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+
+    if (n &lt;= 0 || n > 100) {
+        printf("Invalid array size\n");
+        return 0;
+    }
+
+    printf("Enter array elements:\n");
+    for (int i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    printf("Enter value to search: ");
+    scanf("%d", &amp;key);
+
+    for (int i = 0; i &lt; n; i++) {
+        if (a[i] == key) {
+            found = i;
+            break;
+        }
+    }
+
+    if (found != -1)
+        printf("Element found at index %d\n", found);
+    else
+        printf("Element not found\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>2. Enter a String from the User, Enter a Character and Perform Linear Search Algorithm Through Recursion</h3>
+    <button onclick="toggleCode('q2')">Show/Hide Code</button>
+    <pre id="q2">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int linearSearch(char str[], char key, int index) {
+    if (str[index] == '\0')
+        return -1;
+
+    if (str[index] == key)
+        return index;
+
+    return linearSearch(str, key, index + 1);
+}
+
+int main() {
+    char str[100], key;
+    int result;
+
+    printf("Enter a string: ");
+    scanf("%99s", str);
+
+    printf("Enter character to search: ");
+    scanf(" %c", &amp;key);
+
+    result = linearSearch(str, key, 0);
+
+    if (result != -1)
+        printf("Character found at index %d\n", result);
+    else
+        printf("Character not found\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>3. Enter an Integer Array from the User, Enter an Integer Value and Perform Linear Search Algorithm Through Recursion</h3>
+    <button onclick="toggleCode('q3')">Show/Hide Code</button>
+    <pre id="q3">
+#include &lt;stdio.h&gt;
+
+int linearSearch(int a[], int n, int key, int index) {
+    if (index == n)
+        return -1;
+
+    if (a[index] == key)
+        return index;
+
+    return linearSearch(a, n, key, index + 1);
+}
+
+int main() {
+    int a[100], n, key, result;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+
+    if (n &lt;= 0 || n > 100) {
+        printf("Invalid array size\n");
+        return 0;
+    }
+
+    printf("Enter array elements:\n");
+    for (int i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    printf("Enter value to search: ");
+    scanf("%d", &amp;key);
+
+    result = linearSearch(a, n, key, 0);
+
+    if (result != -1)
+        printf("Element found at index %d\n", result);
+    else
+        printf("Element not found\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>4. Enter a String from the User, Enter a Character and Perform Linear Search Algorithm Through Iteration</h3>
+    <button onclick="toggleCode('q4')">Show/Hide Code</button>
+    <pre id="q4">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+    char str[100], key;
+    int found = -1;
+
+    printf("Enter a string: ");
+    scanf("%99s", str);
+
+    printf("Enter character to search: ");
+    scanf(" %c", &amp;key);
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == key) {
+            found = i;
+            break;
+        }
+    }
+
+    if (found != -1)
+        printf("Character found at index %d\n", found);
+    else
+        printf("Character not found\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>5. Enter an Integer Array from the User, Enter an Integer Value and Perform Binary Search Algorithm Through Iteration</h3>
+    <button onclick="toggleCode('q5')">Show/Hide Code</button>
+    <pre id="q5">
+#include &lt;stdio.h&gt;
+
+int main() {
+    int a[100], n, key, low, high, mid, found = -1;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+
+    if (n &lt;= 0 || n > 100) {
+        printf("Invalid array size\n");
+        return 0;
+    }
+
+    printf("Enter array elements:\n");
+    for (int i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    // Sort array using bubble sort
+    for (int i = 0; i &lt; n - 1; i++) {
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            if (a[j] > a[j + 1]) {
+                int temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++)
+        printf("%d ", a[i]);
+
+    printf("\nEnter value to search: ");
+    scanf("%d", &amp;key);
+
+    low = 0;
+    high = n - 1;
+
+    while (low &lt;= high) {
+        mid = low + (high - low) / 2;
+
+        if (a[mid] == key) {
+            found = mid;
+            break;
+        }
+        else if (key &lt; a[mid])
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+
+    if (found != -1)
+        printf("Element found at sorted index %d\n", found);
+    else
+        printf("Element not found\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>6. Enter a String from the User, Enter a Character and Perform Binary Search Algorithm Through Recursion</h3>
+    <button onclick="toggleCode('q6')">Show/Hide Code</button>
+    <pre id="q6">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int binarySearch(char str[], int low, int high, char key) {
+    if (low > high)
+        return -1;
+
+    int mid = low + (high - low) / 2;
+
+    if (str[mid] == key)
+        return mid;
+
+    if (key &lt; str[mid])
+        return binarySearch(str, low, mid - 1, key);
+
+    return binarySearch(str, mid + 1, high, key);
+}
+
+int main() {
+    char str[100], key;
+    int n, result;
+
+    printf("Enter a string: ");
+    scanf("%99s", str);
+
+    n = strlen(str);
+
+    // Sort characters using bubble sort
+    for (int i = 0; i &lt; n - 1; i++) {
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            if (str[j] > str[j + 1]) {
+                char temp = str[j];
+                str[j] = str[j + 1];
+                str[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Sorted string: %s\n", str);
+
+    printf("Enter character to search: ");
+    scanf(" %c", &amp;key);
+
+    result = binarySearch(str, 0, n - 1, key);
+
+    if (result != -1)
+        printf("Character found at sorted index %d\n", result);
+    else
+        printf("Character not found\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>7. Enter an Integer Array from the User, Enter an Integer Value and Perform Binary Search Algorithm Through Recursion</h3>
+    <button onclick="toggleCode('q7')">Show/Hide Code</button>
+    <pre id="q7">
+#include &lt;stdio.h&gt;
+
+int binarySearch(int a[], int low, int high, int key) {
+    if (low > high)
+        return -1;
+
+    int mid = low + (high - low) / 2;
+
+    if (a[mid] == key)
+        return mid;
+
+    if (key &lt; a[mid])
+        return binarySearch(a, low, mid - 1, key);
+
+    return binarySearch(a, mid + 1, high, key);
+}
+
+int main() {
+    int a[100], n, key, result;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+
+    if (n &lt;= 0 || n > 100) {
+        printf("Invalid array size\n");
+        return 0;
+    }
+
+    printf("Enter array elements:\n");
+    for (int i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    // Sort array using bubble sort
+    for (int i = 0; i &lt; n - 1; i++) {
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            if (a[j] > a[j + 1]) {
+                int temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++)
+        printf("%d ", a[i]);
+
+    printf("\nEnter value to search: ");
+    scanf("%d", &amp;key);
+
+    result = binarySearch(a, 0, n - 1, key);
+
+    if (result != -1)
+        printf("Element found at sorted index %d\n", result);
+    else
+        printf("Element not found\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>8. Enter a String from the User, Enter a Character and Perform Binary Search Algorithm Through Iteration</h3>
+    <button onclick="toggleCode('q8')">Show/Hide Code</button>
+    <pre id="q8">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+    char str[100], key;
+    int n, low, high, mid, found = -1;
+
+    printf("Enter a string: ");
+    scanf("%99s", str);
+
+    n = strlen(str);
+
+    // Sort characters using bubble sort
+    for (int i = 0; i &lt; n - 1; i++) {
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            if (str[j] > str[j + 1]) {
+                char temp = str[j];
+                str[j] = str[j + 1];
+                str[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Sorted string: %s\n", str);
+
+    printf("Enter character to search: ");
+    scanf(" %c", &amp;key);
+
+    low = 0;
+    high = n - 1;
+
+    while (low &lt;= high) {
+        mid = low + (high - low) / 2;
+
+        if (str[mid] == key) {
+            found = mid;
+            break;
+        }
+        else if (key &lt; str[mid])
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+
+    if (found != -1)
+        printf("Character found at sorted index %d\n", found);
+    else
+        printf("Character not found\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>9. Calculate the Best and Worst Complexity of the Linear Searching Algorithm with Exact Time Taken by the Algorithm on Integer Array</h3>
+    <button onclick="toggleCode('q9')">Show/Hide Code</button>
+    <pre id="q9">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+#include &lt;limits.h&gt;
+
+int linearSearch(int a[], int n, int key, int *comparisons) {
+    for (int i = 0; i &lt; n; i++) {
+        (*comparisons)++;
+
+        if (a[i] == key)
+            return i;
+    }
+
+    return -1;
+}
+
+int main() {
+    int a[100], n, bestKey, worstKey;
+    int bestComparisons = 0, worstComparisons = 0;
+    int bestResult, worstResult;
+    clock_t start, end;
+    double bestTime, worstTime;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+
+    if (n &lt;= 0 || n > 100) {
+        printf("Invalid array size\n");
+        return 0;
+    }
+
+    printf("Enter array elements:\n");
+    for (int i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    // Best case: key is the first element
+    bestKey = a[0];
+
+    start = clock();
+    bestResult = linearSearch(a, n, bestKey, &amp;bestComparisons);
+    end = clock();
+
+    bestTime = (double)(end - start) / CLOCKS_PER_SEC;
+
+    // Find a value that is not present for the worst case
+    worstKey = INT_MIN;
+
+    while (1) {
+        int exists = 0;
+
+        for (int i = 0; i &lt; n; i++) {
+            if (a[i] == worstKey) {
+                exists = 1;
+                break;
+            }
+        }
+
+        if (!exists)
+            break;
+
+        worstKey++;
+    }
+
+    start = clock();
+    worstResult = linearSearch(a, n, worstKey, &amp;worstComparisons);
+    end = clock();
+
+    worstTime = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nBest Case:\n");
+    printf("Search key: %d\n", bestKey);
+    printf("Result index: %d\n", bestResult);
+    printf("Comparisons: %d\n", bestComparisons);
+    printf("Time taken: %.9f seconds\n", bestTime);
+    printf("Time complexity: O(1)\n");
+
+    printf("\nWorst Case:\n");
+    printf("Search key: %d (not present)\n", worstKey);
+    printf("Result index: %d\n", worstResult);
+    printf("Comparisons: %d\n", worstComparisons);
+    printf("Time taken: %.9f seconds\n", worstTime);
+    printf("Time complexity: O(n)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>10. Calculate the Best and Worst Complexity of the Binary Searching Algorithm with Exact Time Taken by the Algorithm on Integer Array</h3>
+    <button onclick="toggleCode('q10')">Show/Hide Code</button>
+    <pre id="q10">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+#include &lt;limits.h&gt;
+
+int binarySearch(int a[], int n, int key, int *comparisons) {
+    int low = 0, high = n - 1;
+
+    while (low &lt;= high) {
+        int mid = low + (high - low) / 2;
+        (*comparisons)++;
+
+        if (a[mid] == key)
+            return mid;
+
+        if (key &lt; a[mid])
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+
+    return -1;
+}
+
+int main() {
+    int a[100], n, bestKey, worstKey;
+    int bestComparisons = 0, worstComparisons = 0;
+    int bestResult, worstResult;
+    clock_t start, end;
+    double bestTime, worstTime;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+
+    if (n &lt;= 0 || n > 100) {
+        printf("Invalid array size\n");
+        return 0;
+    }
+
+    printf("Enter array elements:\n");
+    for (int i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    // Sort array using bubble sort
+    for (int i = 0; i &lt; n - 1; i++) {
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            if (a[j] > a[j + 1]) {
+                int temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++)
+        printf("%d ", a[i]);
+
+    // Best case: middle element is found immediately
+    bestKey = a[n / 2];
+
+    start = clock();
+    bestResult = binarySearch(a, n, bestKey, &amp;bestComparisons);
+    end = clock();
+
+    bestTime = (double)(end - start) / CLOCKS_PER_SEC;
+
+    // Worst case: search for a value not present
+    worstKey = INT_MIN;
+
+    while (1) {
+        int exists = 0;
+
+        for (int i = 0; i &lt; n; i++) {
+            if (a[i] == worstKey) {
+                exists = 1;
+                break;
+            }
+        }
+
+        if (!exists)
+            break;
+
+        worstKey++;
+    }
+
+    start = clock();
+    worstResult = binarySearch(a, n, worstKey, &amp;worstComparisons);
+    end = clock();
+
+    worstTime = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\n\nBest Case:\n");
+    printf("Search key: %d\n", bestKey);
+    printf("Result index: %d\n", bestResult);
+    printf("Comparisons: %d\n", bestComparisons);
+    printf("Time taken: %.9f seconds\n", bestTime);
+    printf("Time complexity: O(1)\n");
+
+    printf("\nWorst Case:\n");
+    printf("Search key: %d (not present)\n", worstKey);
+    printf("Result index: %d\n", worstResult);
+    printf("Comparisons: %d\n", worstComparisons);
+    printf("Time taken: %.9f seconds\n", worstTime);
+    printf("Time complexity: O(log n)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+</body>
+</html>

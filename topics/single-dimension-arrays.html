@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Dimension Arrays - C Programs</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <h1>Single Dimension Arrays</h1>
+
+  <div class="question">
+    <h3>1. Enter an array from user and display all the value?</h3>
+    <button onclick="toggleCode('q1')">Show/Hide Code</button>
+    <pre id="q1">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n;
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) {
+        printf("Enter element %d: ", i + 1);
+        scanf("%d", &amp;a[i]);
+    }
+
+    printf("Array elements: ");
+    for (int i = 0; i &lt; n; i++)
+        printf("%d ", a[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>2. Enter an array from user and print the array in reverse order?</h3>
+    <button onclick="toggleCode('q2')">Show/Hide Code</button>
+    <pre id="q2">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Reverse order: ");
+    for (int i = n - 1; i &gt;= 0; i--)
+        printf("%d ", a[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>3. Enter an array from user and copy the array into second array?</h3>
+    <button onclick="toggleCode('q3')">Show/Hide Code</button>
+    <pre id="q3">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], b[100], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+    for (int i = 0; i &lt; n; i++) b[i] = a[i];
+
+    printf("Second array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", b[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>4. Enter an array from user and copy it into another array in reverse order?</h3>
+    <button onclick="toggleCode('q4')">Show/Hide Code</button>
+    <pre id="q4">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], b[100], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+    for (int i = 0; i &lt; n; i++) b[i] = a[n - 1 - i];
+
+    printf("Copied in reverse: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", b[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>5. Enter an array from user and print the numbers which are even?</h3>
+    <button onclick="toggleCode('q5')">Show/Hide Code</button>
+    <pre id="q5">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Even numbers: ");
+    for (int i = 0; i &lt; n; i++)
+        if (a[i] % 2 == 0) printf("%d ", a[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>6. Enter an array from user and print the numbers which are positive?</h3>
+    <button onclick="toggleCode('q6')">Show/Hide Code</button>
+    <pre id="q6">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Positive numbers: ");
+    for (int i = 0; i &lt; n; i++)
+        if (a[i] &gt; 0) printf("%d ", a[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>7. Enter an array from user and square all the values of array?</h3>
+    <button onclick="toggleCode('q7')">Show/Hide Code</button>
+    <pre id="q7">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Squares: ");
+    for (int i = 0; i &lt; n; i++)
+        printf("%lld ", (long long)a[i] * a[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>8. Enter an array from user and find maximum and minimum value?</h3>
+    <button onclick="toggleCode('q8')">Show/Hide Code</button>
+    <pre id="q8">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n, min, max;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    min = max = a[0];
+    for (int i = 1; i &lt; n; i++) {
+        if (a[i] &lt; min) min = a[i];
+        if (a[i] &gt; max) max = a[i];
+    }
+
+    printf("Minimum = %d\\nMaximum = %d", min, max);
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>9. Enter an array from user and find the k-th smallest value?</h3>
+    <button onclick="toggleCode('q9')">Show/Hide Code</button>
+    <pre id="q9">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n, k, temp;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+    printf("Enter k: ");
+    scanf("%d", &amp;k);
+    if (k &lt; 1 || k &gt; n) {
+        printf("Invalid k");
+        return 1;
+    }
+
+    /* Sort the array in ascending order. */
+    for (int i = 0; i &lt; n - 1; i++) {
+        for (int j = 0; j &lt; n - 1 - i; j++) {
+            if (a[j] &gt; a[j + 1]) {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("%d-th smallest value = %d", k, a[k - 1]);
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>10. Enter an array from user and add all values?</h3>
+    <button onclick="toggleCode('q10')">Show/Hide Code</button>
+    <pre id="q10">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n;
+    long long sum = 0;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) {
+        scanf("%d", &amp;a[i]);
+        sum += a[i];
+    }
+
+    printf("Sum = %lld", sum);
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>11. Enter an array from user and find the duplicate values?</h3>
+    <button onclick="toggleCode('q11')">Show/Hide Code</button>
+    <pre id="q11">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n, found;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Duplicate values: ");
+    for (int i = 0; i &lt; n; i++) {
+        found = 0;
+        for (int j = 0; j &lt; i; j++)
+            if (a[i] == a[j]) found = 1;
+
+        if (!found) {
+            for (int j = i + 1; j &lt; n; j++) {
+                if (a[i] == a[j]) {
+                    printf("%d ", a[i]);
+                    break;
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>12. Enter an array from user and remove the duplicate values and fill with zero?</h3>
+    <button onclick="toggleCode('q12')">Show/Hide Code</button>
+    <pre id="q12">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    /* Keep the first occurrence; replace later duplicates with zero. */
+    for (int i = 0; i &lt; n; i++) {
+        for (int j = i + 1; j &lt; n; j++) {
+            if (a[i] == a[j]) a[j] = 0;
+        }
+    }
+
+    printf("Array after removing duplicates: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>13. Enter an array from user and count the duplicate values?</h3>
+    <button onclick="toggleCode('q13')">Show/Hide Code</button>
+    <pre id="q13">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n, count, alreadyCounted;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Duplicate counts:\\n");
+    for (int i = 0; i &lt; n; i++) {
+        alreadyCounted = 0;
+        for (int j = 0; j &lt; i; j++)
+            if (a[i] == a[j]) alreadyCounted = 1;
+
+        if (!alreadyCounted) {
+            count = 1;
+            for (int j = i + 1; j &lt; n; j++)
+                if (a[i] == a[j]) count++;
+
+            if (count &gt; 1) printf("%d occurs %d times\\n", a[i], count);
+        }
+    }
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>14. Enter an array from user and print all possible combinations of the elements?</h3>
+    <button onclick="toggleCode('q14')">Show/Hide Code</button>
+    <pre id="q14">
+#include &lt;stdio.h&gt;
+void printSubsets(int a[], int n, int index, int chosen[], int count) {
+    if (index == n) {
+        if (count &gt; 0) {
+            printf("{ ");
+            for (int i = 0; i &lt; count; i++) printf("%d ", chosen[i]);
+            printf("}\\n");
+        }
+        return;
+    }
+
+    /* Exclude the current element. */
+    printSubsets(a, n, index + 1, chosen, count);
+
+    /* Include the current element. */
+    chosen[count] = a[index];
+    printSubsets(a, n, index + 1, chosen, count + 1);
+}
+
+int main(void) {
+    int a[20], chosen[20], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 20) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("All non-empty subsets (2^n - 1 combinations):\\n");
+    printSubsets(a, n, 0, chosen, 0);
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>15. Enter an array from user and print all the palindrome numbers?</h3>
+    <button onclick="toggleCode('q15')">Show/Hide Code</button>
+    <pre id="q15">
+#include &lt;stdio.h&gt;
+int isPalindrome(int number) {
+    int original = number, reverse = 0;
+    if (number &lt; 0) return 0;
+
+    do {
+        reverse = reverse * 10 + number % 10;
+        number /= 10;
+    } while (number &gt; 0);
+
+    return original == reverse;
+}
+
+int main(void) {
+    int a[100], n;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Palindrome numbers: ");
+    for (int i = 0; i &lt; n; i++)
+        if (isPalindrome(a[i])) printf("%d ", a[i]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>16. Enter two arrays from the user and check they are same or not?</h3>
+    <button onclick="toggleCode('q16')">Show/Hide Code</button>
+    <pre id="q16">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], b[100], n, m, same = 1;
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    scanf("%d", &amp;m);
+    if (m &lt; 1 || m &gt; 100) return 1;
+    for (int i = 0; i &lt; m; i++) scanf("%d", &amp;b[i]);
+
+    if (n != m) same = 0;
+    else {
+        for (int i = 0; i &lt; n; i++)
+            if (a[i] != b[i]) same = 0;
+    }
+
+    if (same) printf("Arrays are same");
+    else printf("Arrays are not same");
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>17. Merge the two sorted arrays into one array but in sorted order?</h3>
+    <button onclick="toggleCode('q17')">Show/Hide Code</button>
+    <pre id="q17">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], b[100], c[200], n, m;
+    int i = 0, j = 0, k = 0;
+
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+    for (int x = 0; x &lt; n; x++) scanf("%d", &amp;a[x]);
+
+    scanf("%d", &amp;m);
+    if (m &lt; 1 || m &gt; 100) return 1;
+    for (int x = 0; x &lt; m; x++) scanf("%d", &amp;b[x]);
+
+    /* Both input arrays must already be sorted in ascending order. */
+    while (i &lt; n &amp;&amp; j &lt; m) {
+        if (a[i] &lt;= b[j]) c[k++] = a[i++];
+        else c[k++] = b[j++];
+    }
+    while (i &lt; n) c[k++] = a[i++];
+    while (j &lt; m) c[k++] = b[j++];
+
+    printf("Merged sorted array: ");
+    for (int x = 0; x &lt; k; x++) printf("%d ", c[x]);
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>18. Find the local minima in the array (an element is smaller than the element before and after it).</h3>
+    <button onclick="toggleCode('q18')">Show/Hide Code</button>
+    <pre id="q18">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n, found = 0;
+    scanf("%d", &amp;n);
+    if (n &lt; 3 || n &gt; 100) {
+        printf("Enter between 3 and 100 elements");
+        return 1;
+    }
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Local minima: ");
+    /* Only interior elements have both a previous and next neighbour. */
+    for (int i = 1; i &lt; n - 1; i++) {
+        if (a[i] &lt; a[i - 1] &amp;&amp; a[i] &lt; a[i + 1]) {
+            printf("%d ", a[i]);
+            found = 1;
+        }
+    }
+    if (!found) printf("None");
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>19. Find the local maxima in the array (an element is greater than the element before and after it).</h3>
+    <button onclick="toggleCode('q19')">Show/Hide Code</button>
+    <pre id="q19">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int a[100], n, found = 0;
+    scanf("%d", &amp;n);
+    if (n &lt; 3 || n &gt; 100) {
+        printf("Enter between 3 and 100 elements");
+        return 1;
+    }
+
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    printf("Local maxima: ");
+    for (int i = 1; i &lt; n - 1; i++) {
+        if (a[i] &gt; a[i - 1] &amp;&amp; a[i] &gt; a[i + 1]) {
+            printf("%d ", a[i]);
+            found = 1;
+        }
+    }
+    if (!found) printf("None");
+
+    return 0;
+}
+    </pre>
+  </div>
+
+  <div class="question">
+    <h3>20. Trapping Rain Water: Given non-negative bar heights of width 1, calculate how much water can be trapped.</h3>
+    <button onclick="toggleCode('q20')">Show/Hide Code</button>
+    <pre id="q20">
+#include &lt;stdio.h&gt;
+int main(void) {
+    int height[100], n;
+    int left = 0, right, leftMax = 0, rightMax = 0;
+    long long water = 0;
+
+    scanf("%d", &amp;n);
+    if (n &lt; 1 || n &gt; 100) return 1;
+
+    for (int i = 0; i &lt; n; i++) {
+        scanf("%d", &amp;height[i]);
+        if (height[i] &lt; 0) {
+            printf("Heights must be non-negative");
+            return 1;
+        }
+    }
+
+    right = n - 1;
+    while (left &lt; right) {
+        if (height[left] &lt;= height[right]) {
+            if (height[left] &gt;= leftMax) leftMax = height[left];
+            else water += leftMax - height[left];
+            left++;
+        } else {
+            if (height[right] &gt;= rightMax) rightMax = height[right];
+            else water += rightMax - height[right];
+            right--;
+        }
+    }
+
+    printf("Trapped water = %lld", water);
+    return 0;
+}
+    </pre>
+  </div>
+</body>
+</html>

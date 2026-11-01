@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi Dimension Arrays - C Programs</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <h1>Multi Dimension Arrays</h1>
+  <div class="question">
+    <h3>1. Enter a matrix of 4 rows and 2 columns and display it in matrix format.</h3>
+    <button onclick="toggleCode('q1')">Show/Hide Code</button>
+    <pre id="q1">
+#include &lt;stdio.h&gt;
+int main() {
+    int a[4][2], i, j;
+    printf(&quot;Enter 8 elements for a 4 x 2 matrix:\n&quot;);
+    for (i = 0; i &lt; 4; i++)
+        for (j = 0; j &lt; 2; j++)
+            scanf(&quot;%d&quot;, &amp;a[i][j]);
+
+    printf(&quot;Matrix:\n&quot;);
+    for (i = 0; i &lt; 4; i++) {
+        for (j = 0; j &lt; 2; j++)
+            printf(&quot;%d\t&quot;, a[i][j]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>2. Enter two matrices from the user, add them, and display the result.</h3>
+    <button onclick="toggleCode('q2')">Show/Hide Code</button>
+    <pre id="q2">
+#include &lt;stdio.h&gt;
+int main() {
+    int a[10][10], b[10][10], sum[10][10];
+    int rows, cols, i, j;
+    printf(&quot;Enter rows and columns (max 10): &quot;);
+    scanf(&quot;%d%d&quot;, &amp;rows, &amp;cols);
+    if (rows &lt; 1 || rows &gt; 10 || cols &lt; 1 || cols &gt; 10) {
+        printf(&quot;Invalid matrix size.\n&quot;);
+        return 0;
+    }
+    printf(&quot;Enter first matrix:\n&quot;);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) scanf(&quot;%d&quot;, &amp;a[i][j]);
+    printf(&quot;Enter second matrix:\n&quot;);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) scanf(&quot;%d&quot;, &amp;b[i][j]);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) sum[i][j] = a[i][j] + b[i][j];
+    printf(&quot;Sum:\n&quot;);
+    for (i = 0; i &lt; rows; i++) {
+        for (j = 0; j &lt; cols; j++) printf(&quot;%d\t&quot;, sum[i][j]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>3. Enter two matrices from the user, subtract them, and display the result.</h3>
+    <button onclick="toggleCode('q3')">Show/Hide Code</button>
+    <pre id="q3">
+#include &lt;stdio.h&gt;
+int main() {
+    int a[10][10], b[10][10], diff[10][10];
+    int rows, cols, i, j;
+    printf(&quot;Enter rows and columns (max 10): &quot;);
+    scanf(&quot;%d%d&quot;, &amp;rows, &amp;cols);
+    if (rows &lt; 1 || rows &gt; 10 || cols &lt; 1 || cols &gt; 10) {
+        printf(&quot;Invalid matrix size.\n&quot;);
+        return 0;
+    }
+    printf(&quot;Enter first matrix:\n&quot;);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) scanf(&quot;%d&quot;, &amp;a[i][j]);
+    printf(&quot;Enter second matrix:\n&quot;);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) scanf(&quot;%d&quot;, &amp;b[i][j]);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) diff[i][j] = a[i][j] - b[i][j];
+    printf(&quot;Difference (first - second):\n&quot;);
+    for (i = 0; i &lt; rows; i++) {
+        for (j = 0; j &lt; cols; j++) printf(&quot;%d\t&quot;, diff[i][j]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>4. Enter two matrices, multiply them, and display the result.</h3>
+    <button onclick="toggleCode('q4')">Show/Hide Code</button>
+    <pre id="q4">
+#include &lt;stdio.h&gt;
+int main() {
+    int a[10][10], b[10][10], product[10][10] = {0};
+    int r1, c1, r2, c2, i, j, k;
+    printf(&quot;Enter rows and columns of first matrix: &quot;);
+    scanf(&quot;%d%d&quot;, &amp;r1, &amp;c1);
+    printf(&quot;Enter rows and columns of second matrix: &quot;);
+    scanf(&quot;%d%d&quot;, &amp;r2, &amp;c2);
+    if (r1 &lt; 1 || r1 &gt; 10 || c1 &lt; 1 || c1 &gt; 10 ||
+        r2 &lt; 1 || r2 &gt; 10 || c2 &lt; 1 || c2 &gt; 10 || c1 != r2) {
+        printf(&quot;Invalid sizes. Columns of first matrix must equal rows of second.\n&quot;);
+        return 0;
+    }
+    printf(&quot;Enter first matrix:\n&quot;);
+    for (i = 0; i &lt; r1; i++)
+        for (j = 0; j &lt; c1; j++) scanf(&quot;%d&quot;, &amp;a[i][j]);
+    printf(&quot;Enter second matrix:\n&quot;);
+    for (i = 0; i &lt; r2; i++)
+        for (j = 0; j &lt; c2; j++) scanf(&quot;%d&quot;, &amp;b[i][j]);
+    for (i = 0; i &lt; r1; i++)
+        for (j = 0; j &lt; c2; j++)
+            for (k = 0; k &lt; c1; k++) product[i][j] += a[i][k] * b[k][j];
+    printf(&quot;Product:\n&quot;);
+    for (i = 0; i &lt; r1; i++) {
+        for (j = 0; j &lt; c2; j++) printf(&quot;%d\t&quot;, product[i][j]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>5. Enter a matrix from the user and copy it into another matrix of the same size.</h3>
+    <button onclick="toggleCode('q5')">Show/Hide Code</button>
+    <pre id="q5">
+#include &lt;stdio.h&gt;
+int main() {
+    int a[10][10], copy[10][10], rows, cols, i, j;
+    printf(&quot;Enter rows and columns (max 10): &quot;);
+    scanf(&quot;%d%d&quot;, &amp;rows, &amp;cols);
+    if (rows &lt; 1 || rows &gt; 10 || cols &lt; 1 || cols &gt; 10) {
+        printf(&quot;Invalid matrix size.\n&quot;);
+        return 0;
+    }
+    printf(&quot;Enter matrix elements:\n&quot;);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) scanf(&quot;%d&quot;, &amp;a[i][j]);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) copy[i][j] = a[i][j];
+    printf(&quot;Copied matrix:\n&quot;);
+    for (i = 0; i &lt; rows; i++) {
+        for (j = 0; j &lt; cols; j++) printf(&quot;%d\t&quot;, copy[i][j]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>6. Enter a matrix, multiply it by a scalar value, and display the result.</h3>
+    <button onclick="toggleCode('q6')">Show/Hide Code</button>
+    <pre id="q6">
+#include &lt;stdio.h&gt;
+int main() {
+    int a[10][10], result[10][10], rows, cols, scalar, i, j;
+    printf(&quot;Enter rows and columns (max 10): &quot;);
+    scanf(&quot;%d%d&quot;, &amp;rows, &amp;cols);
+    if (rows &lt; 1 || rows &gt; 10 || cols &lt; 1 || cols &gt; 10) {
+        printf(&quot;Invalid matrix size.\n&quot;);
+        return 0;
+    }
+    printf(&quot;Enter matrix elements:\n&quot;);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) scanf(&quot;%d&quot;, &amp;a[i][j]);
+    printf(&quot;Enter scalar: &quot;);
+    scanf(&quot;%d&quot;, &amp;scalar);
+    for (i = 0; i &lt; rows; i++)
+        for (j = 0; j &lt; cols; j++) result[i][j] = a[i][j] * scalar;
+    printf(&quot;Result:\n&quot;);
+    for (i = 0; i &lt; rows; i++) {
+        for (j = 0; j &lt; cols; j++) printf(&quot;%d\t&quot;, result[i][j]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>7. Create a two-player Tic-Tac-Toe game using a 3 x 3 two-dimensional array.</h3>
+    <button onclick="toggleCode('q7')">Show/Hide Code</button>
+    <pre id="q7">
+#include &lt;stdio.h&gt;
+int main() {
+    char board[3][3] = {{&#x27;1&#x27;,&#x27;2&#x27;,&#x27;3&#x27;}, {&#x27;4&#x27;,&#x27;5&#x27;,&#x27;6&#x27;}, {&#x27;7&#x27;,&#x27;8&#x27;,&#x27;9&#x27;}};
+    int player = 1, choice, row, col, moves = 0, i;
+    char mark;
+    while (moves &lt; 9) {
+        printf(&quot;\n&quot;);
+        for (i = 0; i &lt; 3; i++)
+            printf(&quot; %c | %c | %c\n---+---+---\n&quot;, board[i][0], board[i][1], board[i][2]);
+        printf(&quot;Player %d, choose a cell (1-9): &quot;, player);
+        if (scanf(&quot;%d&quot;, &amp;choice) != 1) return 0;
+        if (choice &lt; 1 || choice &gt; 9) {
+            printf(&quot;Invalid choice. Try again.\n&quot;);
+            continue;
+        }
+        row = (choice - 1) / 3;
+        col = (choice - 1) % 3;
+        if (board[row][col] == &#x27;X&#x27; || board[row][col] == &#x27;O&#x27;) {
+            printf(&quot;That cell is already taken. Try again.\n&quot;);
+            continue;
+        }
+        mark = (player == 1) ? &#x27;X&#x27; : &#x27;O&#x27;;
+        board[row][col] = mark;
+        moves++;
+        if ((board[row][0] == mark &amp;&amp; board[row][1] == mark &amp;&amp; board[row][2] == mark) ||
+            (board[0][col] == mark &amp;&amp; board[1][col] == mark &amp;&amp; board[2][col] == mark) ||
+            (row == col &amp;&amp; board[0][0] == mark &amp;&amp; board[1][1] == mark &amp;&amp; board[2][2] == mark) ||
+            (row + col == 2 &amp;&amp; board[0][2] == mark &amp;&amp; board[1][1] == mark &amp;&amp; board[2][0] == mark)) {
+            printf(&quot;\n&quot;);
+            for (i = 0; i &lt; 3; i++)
+                printf(&quot; %c | %c | %c\n&quot;, board[i][0], board[i][1], board[i][2]);
+            printf(&quot;Player %d wins!\n&quot;, player);
+            return 0;
+        }
+        player = (player == 1) ? 2 : 1;
+    }
+    printf(&quot;\n&quot;);
+    for (i = 0; i &lt; 3; i++)
+        printf(&quot; %c | %c | %c\n&quot;, board[i][0], board[i][1], board[i][2]);
+    printf(&quot;It&#x27;s a draw!\n&quot;);
+    return 0;
+}
+    </pre>
+  </div>
+</body>
+</html>

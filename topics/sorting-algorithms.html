@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrays - C Programs</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <h1>Sorting Algorithms</h1>
+
+  <div class="question">
+    <h3>1. Enter an Integer Array and Perform Selection Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q1')">Show/Hide Code</button>
+    <pre id="q1">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+int main() {
+    int a[100], n, comparisons = 0;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+
+    for (int i = 0; i &lt; n - 1; i++) {
+        int min = i;
+        for (int j = i + 1; j &lt; n; j++) {
+            comparisons++;
+            if (a[j] &lt; a[min]) min = j;
+        }
+        int temp = a[i];
+        a[i] = a[min];
+        a[min] = temp;
+    }
+
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", comparisons);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n^2)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>2. Enter an Integer Array and Perform Selection Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q2')">Show/Hide Code</button>
+    <pre id="q2">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+void selectionSort(int a[], int n, int i, int *c) {
+    if (i >= n - 1) return;
+
+    int min = i;
+    for (int j = i + 1; j &lt; n; j++) {
+        (*c)++;
+        if (a[j] &lt; a[min]) min = j;
+    }
+
+    int temp = a[i];
+    a[i] = a[min];
+    a[min] = temp;
+
+    selectionSort(a, n, i + 1, c);
+}
+
+int main() {
+    int a[100], n, c = 0;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+    selectionSort(a, n, 0, &amp;c);
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n^2)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>3. Enter an Integer Array and Perform Bubble Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q3')">Show/Hide Code</button>
+    <pre id="q3">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+int main() {
+    int a[100], n, c = 0, swapped;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+
+    for (int i = 0; i &lt; n - 1; i++) {
+        swapped = 0;
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            c++;
+            if (a[j] > a[j + 1]) {
+                int temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+        if (!swapped) break;
+    }
+
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>4. Enter an Integer Array and Perform Bubble Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q4')">Show/Hide Code</button>
+    <pre id="q4">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+void bubbleSort(int a[], int n, int *c) {
+    if (n &lt;= 1) return;
+
+    int swapped = 0;
+    for (int i = 0; i &lt; n - 1; i++) {
+        (*c)++;
+        if (a[i] > a[i + 1]) {
+            int temp = a[i];
+            a[i] = a[i + 1];
+            a[i + 1] = temp;
+            swapped = 1;
+        }
+    }
+
+    if (swapped) bubbleSort(a, n - 1, c);
+}
+
+int main() {
+    int a[100], n, c = 0;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+    bubbleSort(a, n, &amp;c);
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>5. Enter an Integer Array and Perform Insertion Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q5')">Show/Hide Code</button>
+    <pre id="q5">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+int main() {
+    int a[100], n, c = 0;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+
+    for (int i = 1; i &lt; n; i++) {
+        int key = a[i], j = i - 1;
+        while (j >= 0) {
+            c++;
+            if (a[j] > key) {
+                a[j + 1] = a[j];
+                j--;
+            } else break;
+        }
+        a[j + 1] = key;
+    }
+
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>6. Enter an Integer Array and Perform Insertion Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q6')">Show/Hide Code</button>
+    <pre id="q6">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+void insertionSort(int a[], int n, int *c) {
+    if (n &lt;= 1) return;
+
+    insertionSort(a, n - 1, c);
+
+    int key = a[n - 1];
+    int j = n - 2;
+
+    while (j >= 0) {
+        (*c)++;
+        if (a[j] > key) {
+            a[j + 1] = a[j];
+            j--;
+        } else break;
+    }
+    a[j + 1] = key;
+}
+
+int main() {
+    int a[100], n, c = 0;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+    insertionSort(a, n, &amp;c);
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>7. Enter an Integer Array and Perform Merge Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q7')">Show/Hide Code</button>
+    <pre id="q7">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+int c = 0;
+
+void merge(int a[], int l, int m, int r) {
+    int temp[100], i = l, j = m + 1, k = 0;
+
+    while (i &lt;= m &amp;&amp; j &lt;= r) {
+        c++;
+        if (a[i] &lt;= a[j]) temp[k++] = a[i++];
+        else temp[k++] = a[j++];
+    }
+
+    while (i &lt;= m) temp[k++] = a[i++];
+    while (j &lt;= r) temp[k++] = a[j++];
+
+    for (i = l, k = 0; i &lt;= r; i++, k++)
+        a[i] = temp[k];
+}
+
+int main() {
+    int a[100], n;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+
+    for (int width = 1; width &lt; n; width *= 2) {
+        for (int l = 0; l &lt; n; l += 2 * width) {
+            int m = l + width - 1;
+            int r = l + 2 * width - 1;
+            if (m >= n) continue;
+            if (r >= n) r = n - 1;
+            merge(a, l, m, r);
+        }
+    }
+
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n log n)");
+    printf("\nWorst complexity: O(n log n)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>8. Enter an Integer Array and Perform Merge Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q8')">Show/Hide Code</button>
+    <pre id="q8">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+int c = 0;
+
+void merge(int a[], int l, int m, int r) {
+    int temp[100], i = l, j = m + 1, k = 0;
+
+    while (i &lt;= m &amp;&amp; j &lt;= r) {
+        c++;
+        if (a[i] &lt;= a[j]) temp[k++] = a[i++];
+        else temp[k++] = a[j++];
+    }
+
+    while (i &lt;= m) temp[k++] = a[i++];
+    while (j &lt;= r) temp[k++] = a[j++];
+
+    for (i = l, k = 0; i &lt;= r; i++, k++)
+        a[i] = temp[k];
+}
+
+void mergeSort(int a[], int l, int r) {
+    if (l >= r) return;
+
+    int m = l + (r - l) / 2;
+    mergeSort(a, l, m);
+    mergeSort(a, m + 1, r);
+    merge(a, l, m, r);
+}
+
+int main() {
+    int a[100], n;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+    mergeSort(a, 0, n - 1);
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n log n)");
+    printf("\nWorst complexity: O(n log n)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>9. Enter an Integer Array and Perform Quick Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q9')">Show/Hide Code</button>
+    <pre id="q9">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+int c = 0;
+
+int partition(int a[], int low, int high) {
+    int pivot = a[high], i = low - 1;
+
+    for (int j = low; j &lt; high; j++) {
+        c++;
+        if (a[j] &lt;= pivot) {
+            i++;
+            int t = a[i]; a[i] = a[j]; a[j] = t;
+        }
+    }
+
+    int t = a[i + 1];
+    a[i + 1] = a[high];
+    a[high] = t;
+
+    return i + 1;
+}
+
+int main() {
+    int a[100], stack[200], top = -1, n;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+
+    stack[++top] = 0;
+    stack[++top] = n - 1;
+
+    while (top >= 0) {
+        int high = stack[top--];
+        int low = stack[top--];
+
+        if (low &lt; high) {
+            int p = partition(a, low, high);
+
+            if (p - 1 > low) {
+                stack[++top] = low;
+                stack[++top] = p - 1;
+            }
+            if (p + 1 &lt; high) {
+                stack[++top] = p + 1;
+                stack[++top] = high;
+            }
+        }
+    }
+
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n log n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>10. Enter an Integer Array and Perform Quick Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q10')">Show/Hide Code</button>
+    <pre id="q10">
+#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+
+int c = 0;
+
+int partition(int a[], int low, int high) {
+    int pivot = a[high], i = low - 1;
+
+    for (int j = low; j &lt; high; j++) {
+        c++;
+        if (a[j] &lt;= pivot) {
+            i++;
+            int t = a[i]; a[i] = a[j]; a[j] = t;
+        }
+    }
+
+    int t = a[i + 1];
+    a[i + 1] = a[high];
+    a[high] = t;
+
+    return i + 1;
+}
+
+void quickSort(int a[], int low, int high) {
+    if (low &lt; high) {
+        int p = partition(a, low, high);
+        quickSort(a, low, p - 1);
+        quickSort(a, p + 1, high);
+    }
+}
+
+int main() {
+    int a[100], n;
+    clock_t start, end;
+
+    printf("Enter array size: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter elements:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%d", &amp;a[i]);
+
+    start = clock();
+    quickSort(a, 0, n - 1);
+    end = clock();
+
+    printf("Sorted array: ");
+    for (int i = 0; i &lt; n; i++) printf("%d ", a[i]);
+
+    printf("\nComparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n log n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>11. Enter a String Array and Perform Selection Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q11')">Show/Hide Code</button>
+    <pre id="q11">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+int main() {
+    char a[100][100], temp[100];
+    int n, c = 0;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+
+    for (int i = 0; i &lt; n - 1; i++) {
+        int min = i;
+        for (int j = i + 1; j &lt; n; j++) {
+            c++;
+            if (strcmp(a[j], a[min]) &lt; 0) min = j;
+        }
+        strcpy(temp, a[i]);
+        strcpy(a[i], a[min]);
+        strcpy(a[min], temp);
+    }
+
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n^2)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>12. Enter a String Array and Perform Selection Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q12')">Show/Hide Code</button>
+    <pre id="q12">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+void selectionSort(char a[][100], int n, int i, int *c) {
+    if (i >= n - 1) return;
+
+    int min = i;
+    for (int j = i + 1; j &lt; n; j++) {
+        (*c)++;
+        if (strcmp(a[j], a[min]) &lt; 0) min = j;
+    }
+
+    char temp[100];
+    strcpy(temp, a[i]);
+    strcpy(a[i], a[min]);
+    strcpy(a[min], temp);
+
+    selectionSort(a, n, i + 1, c);
+}
+
+int main() {
+    char a[100][100];
+    int n, c = 0;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+    selectionSort(a, n, 0, &amp;c);
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n^2)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>13. Enter a String Array and Perform Bubble Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q13')">Show/Hide Code</button>
+    <pre id="q13">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+int main() {
+    char a[100][100], temp[100];
+    int n, c = 0, swapped;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+
+    for (int i = 0; i &lt; n - 1; i++) {
+        swapped = 0;
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            c++;
+            if (strcmp(a[j], a[j + 1]) > 0) {
+                strcpy(temp, a[j]);
+                strcpy(a[j], a[j + 1]);
+                strcpy(a[j + 1], temp);
+                swapped = 1;
+            }
+        }
+        if (!swapped) break;
+    }
+
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>14. Enter a String Array and Perform Bubble Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q14')">Show/Hide Code</button>
+    <pre id="q14">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+void bubbleSort(char a[][100], int n, int *c) {
+    if (n &lt;= 1) return;
+
+    int swapped = 0;
+    char temp[100];
+
+    for (int i = 0; i &lt; n - 1; i++) {
+        (*c)++;
+        if (strcmp(a[i], a[i + 1]) > 0) {
+            strcpy(temp, a[i]);
+            strcpy(a[i], a[i + 1]);
+            strcpy(a[i + 1], temp);
+            swapped = 1;
+        }
+    }
+
+    if (swapped) bubbleSort(a, n - 1, c);
+}
+
+int main() {
+    char a[100][100];
+    int n, c = 0;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+    bubbleSort(a, n, &amp;c);
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>15. Enter a String Array and Perform Insertion Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q15')">Show/Hide Code</button>
+    <pre id="q15">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+int main() {
+    char a[100][100], key[100];
+    int n, c = 0;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+
+    for (int i = 1; i &lt; n; i++) {
+        strcpy(key, a[i]);
+        int j = i - 1;
+
+        while (j >= 0) {
+            c++;
+            if (strcmp(a[j], key) > 0) {
+                strcpy(a[j + 1], a[j]);
+                j--;
+            } else break;
+        }
+        strcpy(a[j + 1], key);
+    }
+
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>16. Enter a String Array and Perform Insertion Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q16')">Show/Hide Code</button>
+    <pre id="q16">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+void insertionSort(char a[][100], int n, int *c) {
+    if (n &lt;= 1) return;
+
+    insertionSort(a, n - 1, c);
+
+    char key[100];
+    strcpy(key, a[n - 1]);
+    int j = n - 2;
+
+    while (j >= 0) {
+        (*c)++;
+        if (strcmp(a[j], key) > 0) {
+            strcpy(a[j + 1], a[j]);
+            j--;
+        } else break;
+    }
+    strcpy(a[j + 1], key);
+}
+
+int main() {
+    char a[100][100];
+    int n, c = 0;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+    insertionSort(a, n, &amp;c);
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>17. Enter a String Array and Perform Merge Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q17')">Show/Hide Code</button>
+    <pre id="q17">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+int c = 0;
+
+void merge(char a[][100], int l, int m, int r) {
+    char temp[100][100];
+    int i = l, j = m + 1, k = 0;
+
+    while (i &lt;= m &amp;&amp; j &lt;= r) {
+        c++;
+        if (strcmp(a[i], a[j]) &lt;= 0)
+            strcpy(temp[k++], a[i++]);
+        else
+            strcpy(temp[k++], a[j++]);
+    }
+
+    while (i &lt;= m) strcpy(temp[k++], a[i++]);
+    while (j &lt;= r) strcpy(temp[k++], a[j++]);
+
+    for (i = l, k = 0; i &lt;= r; i++, k++)
+        strcpy(a[i], temp[k]);
+}
+
+int main() {
+    char a[100][100];
+    int n;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+
+    for (int width = 1; width &lt; n; width *= 2) {
+        for (int l = 0; l &lt; n; l += 2 * width) {
+            int m = l + width - 1;
+            int r = l + 2 * width - 1;
+            if (m >= n) continue;
+            if (r >= n) r = n - 1;
+            merge(a, l, m, r);
+        }
+    }
+
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n log n)");
+    printf("\nWorst complexity: O(n log n)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>18. Enter a String Array and Perform Merge Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q18')">Show/Hide Code</button>
+    <pre id="q18">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+int c = 0;
+
+void merge(char a[][100], int l, int m, int r) {
+    char temp[100][100];
+    int i = l, j = m + 1, k = 0;
+
+    while (i &lt;= m &amp;&amp; j &lt;= r) {
+        c++;
+        if (strcmp(a[i], a[j]) &lt;= 0)
+            strcpy(temp[k++], a[i++]);
+        else
+            strcpy(temp[k++], a[j++]);
+    }
+
+    while (i &lt;= m) strcpy(temp[k++], a[i++]);
+    while (j &lt;= r) strcpy(temp[k++], a[j++]);
+
+    for (i = l, k = 0; i &lt;= r; i++, k++)
+        strcpy(a[i], temp[k]);
+}
+
+void mergeSort(char a[][100], int l, int r) {
+    if (l >= r) return;
+
+    int m = l + (r - l) / 2;
+    mergeSort(a, l, m);
+    mergeSort(a, m + 1, r);
+    merge(a, l, m, r);
+}
+
+int main() {
+    char a[100][100];
+    int n;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+    mergeSort(a, 0, n - 1);
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n log n)");
+    printf("\nWorst complexity: O(n log n)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>19. Enter a String Array and Perform Quick Sort Through Iteration. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q19')">Show/Hide Code</button>
+    <pre id="q19">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+int c = 0;
+
+int partition(char a[][100], int low, int high) {
+    char pivot[100], temp[100];
+    strcpy(pivot, a[high]);
+    int i = low - 1;
+
+    for (int j = low; j &lt; high; j++) {
+        c++;
+        if (strcmp(a[j], pivot) &lt;= 0) {
+            i++;
+            strcpy(temp, a[i]);
+            strcpy(a[i], a[j]);
+            strcpy(a[j], temp);
+        }
+    }
+
+    strcpy(temp, a[i + 1]);
+    strcpy(a[i + 1], a[high]);
+    strcpy(a[high], temp);
+
+    return i + 1;
+}
+
+int main() {
+    char a[100][100], temp[100];
+    int stack[200], top = -1, n;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+
+    stack[++top] = 0;
+    stack[++top] = n - 1;
+
+    while (top >= 0) {
+        int high = stack[top--];
+        int low = stack[top--];
+
+        if (low &lt; high) {
+            int p = partition(a, low, high);
+
+            if (p - 1 > low) {
+                stack[++top] = low;
+                stack[++top] = p - 1;
+            }
+            if (p + 1 &lt; high) {
+                stack[++top] = p + 1;
+                stack[++top] = high;
+            }
+        }
+    }
+
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n log n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+
+<div class="question">
+    <h3>20. Enter a String Array and Perform Quick Sort Through Recursion. Calculate Best and Worst Complexity with Time</h3>
+    <button onclick="toggleCode('q20')">Show/Hide Code</button>
+    <pre id="q20">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+int c = 0;
+
+int partition(char a[][100], int low, int high) {
+    char pivot[100], temp[100];
+    strcpy(pivot, a[high]);
+    int i = low - 1;
+
+    for (int j = low; j &lt; high; j++) {
+        c++;
+        if (strcmp(a[j], pivot) &lt;= 0) {
+            i++;
+            strcpy(temp, a[i]);
+            strcpy(a[i], a[j]);
+            strcpy(a[j], temp);
+        }
+    }
+
+    strcpy(temp, a[i + 1]);
+    strcpy(a[i + 1], a[high]);
+    strcpy(a[high], temp);
+
+    return i + 1;
+}
+
+void quickSort(char a[][100], int low, int high) {
+    if (low &lt; high) {
+        int p = partition(a, low, high);
+        quickSort(a, low, p - 1);
+        quickSort(a, p + 1, high);
+    }
+}
+
+int main() {
+    char a[100][100];
+    int n;
+    clock_t start, end;
+
+    printf("Enter number of strings: ");
+    scanf("%d", &amp;n);
+    if (n &lt;= 0 || n > 100) return 0;
+
+    printf("Enter strings:\n");
+    for (int i = 0; i &lt; n; i++) scanf("%99s", a[i]);
+
+    start = clock();
+    quickSort(a, 0, n - 1);
+    end = clock();
+
+    printf("Sorted strings:\n");
+    for (int i = 0; i &lt; n; i++) printf("%s\n", a[i]);
+
+    printf("Comparisons: %d", c);
+    printf("\nTime: %.9f seconds", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("\nBest complexity: O(n log n)");
+    printf("\nWorst complexity: O(n^2)\n");
+
+    return 0;
+}
+    </pre>
+</div>
+</body>
+</html>

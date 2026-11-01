@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stacks - C Programs</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../script.js" defer></script>
+</head>
+<body>
+  <h1>Stacks</h1>
+  <div class="question">
+    <h3>1. Create an integer stack using an array with PUSH, POP, PEEK, ISEMPTY, and ISFULL operations.</h3>
+    <button onclick="toggleCode('q1')">Show/Hide Code</button>
+    <pre id="q1">
+#include &lt;stdio.h&gt;
+#define MAX 100
+int stack[MAX], top = -1;
+int isEmpty() { return top == -1; }
+int isFull() { return top == MAX - 1; }
+void push(int value) {
+    if (isFull()) printf(&quot;Stack is full.\n&quot;);
+    else { stack[++top] = value; printf(&quot;%d pushed.\n&quot;, value); }
+}
+void pop() {
+    if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+    else printf(&quot;Popped: %d\n&quot;, stack[top--]);
+}
+void peek() {
+    if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+    else printf(&quot;Top: %d\n&quot;, stack[top]);
+}
+int main() {
+    int choice, value;
+    while (1) {
+        printf(&quot;\n1.Push 2.Pop 3.Peek 4.IsEmpty 5.IsFull 6.Display 7.Exit\nChoice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        if (choice == 1) { printf(&quot;Value: &quot;); scanf(&quot;%d&quot;, &amp;value); push(value); }
+        else if (choice == 2) pop();
+        else if (choice == 3) peek();
+        else if (choice == 4) printf(isEmpty() ? &quot;Stack is empty.\n&quot; : &quot;Stack is not empty.\n&quot;);
+        else if (choice == 5) printf(isFull() ? &quot;Stack is full.\n&quot; : &quot;Stack is not full.\n&quot;);
+        else if (choice == 6) {
+            int i;
+            if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+            else { for (i = top; i &gt;= 0; i--) printf(&quot;%d\n&quot;, stack[i]); }
+        } else if (choice == 7) break;
+        else printf(&quot;Invalid choice.\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>2. Create a character stack using an array with PUSH, POP, PEEK, ISEMPTY, and ISFULL operations.</h3>
+    <button onclick="toggleCode('q2')">Show/Hide Code</button>
+    <pre id="q2">
+#include &lt;stdio.h&gt;
+#define MAX 100
+char stack[MAX]; int top = -1;
+int isEmpty() { return top == -1; }
+int isFull() { return top == MAX - 1; }
+void push(char value) {
+    if (isFull()) printf(&quot;Stack is full.\n&quot;);
+    else { stack[++top] = value; printf(&quot;%c pushed.\n&quot;, value); }
+}
+void pop() {
+    if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+    else printf(&quot;Popped: %c\n&quot;, stack[top--]);
+}
+void peek() {
+    if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+    else printf(&quot;Top: %c\n&quot;, stack[top]);
+}
+int main() {
+    int choice; char value; 
+    while (1) {
+        printf(&quot;\n1.Push 2.Pop 3.Peek 4.IsEmpty 5.IsFull 6.Display 7.Exit\nChoice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        if (choice == 1) { printf(&quot;Character: &quot;); scanf(&quot; %c&quot;, &amp;value); push(value); }
+        else if (choice == 2) pop();
+        else if (choice == 3) peek();
+        else if (choice == 4) printf(isEmpty() ? &quot;Stack is empty.\n&quot; : &quot;Stack is not empty.\n&quot;);
+        else if (choice == 5) printf(isFull() ? &quot;Stack is full.\n&quot; : &quot;Stack is not full.\n&quot;);
+        else if (choice == 6) {
+            int i;
+            if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+            else for (i = top; i &gt;= 0; i--) printf(&quot;%c\n&quot;, stack[i]);
+        } else if (choice == 7) break;
+        else printf(&quot;Invalid choice.\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>3. Create a dynamically allocated integer-node stack with PUSH, POP, PEEK, ISEMPTY, and I SFULL operations.</h3>
+    <button onclick="toggleCode('q3')">Show/Hide Code</button>
+    <pre id="q3">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+typedef struct Node { int data; struct Node *next; } Node;
+Node *top = NULL;
+int isEmpty() { return top == NULL; }
+int isFull() {
+    Node *p = (Node *)malloc(sizeof(Node));
+    if (p == NULL) return 1;
+    free(p); return 0;
+}
+void push(int value) {
+    Node *p = (Node *)malloc(sizeof(Node));
+    if (p == NULL) { printf(&quot;Stack is full (memory unavailable).\n&quot;); return; }
+    p-&gt;data = value; p-&gt;next = top; top = p;
+    printf(&quot;%d pushed.\n&quot;, value);
+}
+void pop() {
+    Node *p;
+    if (isEmpty()) { printf(&quot;Stack is empty.\n&quot;); return; }
+    p = top; printf(&quot;Popped: %d\n&quot;, p-&gt;data); top = top-&gt;next; free(p);
+}
+void peek() {
+    if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+    else printf(&quot;Top: %d\n&quot;, top-&gt;data);
+}
+int main() {
+    int choice, value; Node *p;
+    while (1) {
+        printf(&quot;\n1.Push 2.Pop 3.Peek 4.IsEmpty 5.IsFull 6.Display 7.Exit\nChoice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        if (choice == 1) { printf(&quot;Value: &quot;); scanf(&quot;%d&quot;, &amp;value); push(value); }
+        else if (choice == 2) pop();
+        else if (choice == 3) peek();
+        else if (choice == 4) printf(isEmpty() ? &quot;Stack is empty.\n&quot; : &quot;Stack is not empty.\n&quot;);
+        else if (choice == 5) printf(isFull() ? &quot;Stack is full (memory unavailable).\n&quot; : &quot;Stack is not full.\n&quot;);
+        else if (choice == 6) {
+            for (p = top; p != NULL; p = p-&gt;next) printf(&quot;%d\n&quot;, p-&gt;data);
+            if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+        } else if (choice == 7) break;
+        else printf(&quot;Invalid choice.\n&quot;);
+    }
+    while (top != NULL) pop();
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>4. Create a dynamically allocated character-node stack with PUSH, POP, PEEK, ISEMPTY, and ISFULL operations.</h3>
+    <button onclick="toggleCode('q4')">Show/Hide Code</button>
+    <pre id="q4">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+typedef struct Node { char data; struct Node *next; } Node;
+Node *top = NULL;
+int isEmpty() { return top == NULL; }
+int isFull() {
+    Node *p = (Node *)malloc(sizeof(Node));
+    if (p == NULL) return 1;
+    free(p); return 0;
+}
+void push(char value) {
+    Node *p = (Node *)malloc(sizeof(Node));
+    if (p == NULL) { printf(&quot;Stack is full (memory unavailable).\n&quot;); return; }
+    p-&gt;data = value; p-&gt;next = top; top = p;
+    printf(&quot;%c pushed.\n&quot;, value);
+}
+void pop() {
+    Node *p;
+    if (isEmpty()) { printf(&quot;Stack is empty.\n&quot;); return; }
+    p = top; printf(&quot;Popped: %c\n&quot;, p-&gt;data); top = top-&gt;next; free(p);
+}
+void peek() {
+    if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+    else printf(&quot;Top: %c\n&quot;, top-&gt;data);
+}
+int main() {
+    int choice; char value; Node *p;
+    while (1) {
+        printf(&quot;\n1.Push 2.Pop 3.Peek 4.IsEmpty 5.IsFull 6.Display 7.Exit\nChoice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        if (choice == 1) { printf(&quot;Character: &quot;); scanf(&quot; %c&quot;, &amp;value); push(value); }
+        else if (choice == 2) pop();
+        else if (choice == 3) peek();
+        else if (choice == 4) printf(isEmpty() ? &quot;Stack is empty.\n&quot; : &quot;Stack is not empty.\n&quot;);
+        else if (choice == 5) printf(isFull() ? &quot;Stack is full (memory unavailable).\n&quot; : &quot;Stack is not full.\n&quot;);
+        else if (choice == 6) {
+            for (p = top; p != NULL; p = p-&gt;next) printf(&quot;%c\n&quot;, p-&gt;data);
+            if (isEmpty()) printf(&quot;Stack is empty.\n&quot;);
+        } else if (choice == 7) break;
+        else printf(&quot;Invalid choice.\n&quot;);
+    }
+    while (top != NULL) pop();
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>5. Enter a string and reverse it using a stack.</h3>
+    <button onclick="toggleCode('q5')">Show/Hide Code</button>
+    <pre id="q5">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define MAX 500
+int main() {
+    char s[MAX], stack[MAX]; int top = -1, i;
+    printf(&quot;Enter a string: &quot;);
+    fgets(s, sizeof(s), stdin);
+    s[strcspn(s, &quot;\n&quot;)] = &#x27;\0&#x27;;
+    for (i = 0; s[i] != &#x27;\0&#x27;; i++) stack[++top] = s[i];
+    printf(&quot;Reversed string: &quot;);
+    while (top &gt;= 0) putchar(stack[top--]);
+    printf(&quot;\n&quot;);
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>6. Match round parentheses using a stack (check whether every opening bracket has a matching closing bracket).</h3>
+    <button onclick="toggleCode('q6')">Show/Hide Code</button>
+    <pre id="q6">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define MAX 500
+int main() {
+    char s[MAX], stack[MAX]; int top = -1, i, valid = 1;
+    printf(&quot;Enter an expression: &quot;);
+    fgets(s, sizeof(s), stdin);
+    for (i = 0; s[i] != &#x27;\0&#x27;; i++) {
+        if (s[i] == &#x27;(&#x27;) stack[++top] = &#x27;(&#x27;;
+        else if (s[i] == &#x27;)&#x27;) {
+            if (top == -1) { valid = 0; break; }
+            top--;
+        }
+    }
+    if (top != -1) valid = 0;
+    if (valid) printf(&quot;Parentheses are balanced.\n&quot;);
+    else printf(&quot;Parentheses are not balanced.\n&quot;);
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>7. Create two integer stacks in a single array.</h3>
+    <button onclick="toggleCode('q7')">Show/Hide Code</button>
+    <pre id="q7">
+#include &lt;stdio.h&gt;
+#define MAX 100
+int a[MAX], top1 = -1, top2 = MAX;
+int main() {
+    int choice, stackNo, value, i;
+    while (1) {
+        printf(&quot;\n1.Push 2.Pop 3.Display 4.Exit\nChoice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        if (choice == 4) break;
+        if (choice == 1) {
+            printf(&quot;Stack number (1 or 2): &quot;); scanf(&quot;%d&quot;, &amp;stackNo);
+            printf(&quot;Value: &quot;); scanf(&quot;%d&quot;, &amp;value);
+            if (top1 + 1 == top2) printf(&quot;Combined array is full.\n&quot;);
+            else if (stackNo == 1) a[++top1] = value;
+            else if (stackNo == 2) a[--top2] = value;
+            else printf(&quot;Invalid stack number.\n&quot;);
+        } else if (choice == 2) {
+            printf(&quot;Stack number (1 or 2): &quot;); scanf(&quot;%d&quot;, &amp;stackNo);
+            if (stackNo == 1) {
+                if (top1 == -1) printf(&quot;Stack 1 is empty.\n&quot;);
+                else printf(&quot;Popped from stack 1: %d\n&quot;, a[top1--]);
+            } else if (stackNo == 2) {
+                if (top2 == MAX) printf(&quot;Stack 2 is empty.\n&quot;);
+                else printf(&quot;Popped from stack 2: %d\n&quot;, a[top2++]);
+            } else printf(&quot;Invalid stack number.\n&quot;);
+        } else if (choice == 3) {
+            printf(&quot;Stack 1: &quot;);
+            for (i = top1; i &gt;= 0; i--) printf(&quot;%d &quot;, a[i]);
+            printf(&quot;\nStack 2: &quot;);
+            for (i = top2; i &lt; MAX; i++) printf(&quot;%d &quot;, a[i]);
+            printf(&quot;\n&quot;);
+        } else printf(&quot;Invalid choice.\n&quot;);
+    }
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>8. Sort an integer stack in ascending order using an array.</h3>
+    <button onclick="toggleCode('q8')">Show/Hide Code</button>
+    <pre id="q8">
+#include &lt;stdio.h&gt;
+#define MAX 100
+int main() {
+    int s[MAX], temp[MAX], n, i, j, x, top = -1, ttop = -1;
+    printf(&quot;Enter number of elements (1-100): &quot;); scanf(&quot;%d&quot;, &amp;n);
+    if (n &lt; 1 || n &gt; MAX) { printf(&quot;Invalid size.\n&quot;); return 0; }
+    printf(&quot;Enter stack elements from bottom to top: &quot;);
+    for (i = 0; i &lt; n; i++) { scanf(&quot;%d&quot;, &amp;x); s[++top] = x; }
+    while (top &gt;= 0) {
+        x = s[top--];
+        while (ttop &gt;= 0 &amp;&amp; temp[ttop] &gt; x) s[++top] = temp[ttop--];
+        temp[++ttop] = x;
+    }
+    printf(&quot;Stack sorted in ascending order (bottom to top): &quot;);
+    for (i = 0; i &lt;= ttop; i++) printf(&quot;%d &quot;, temp[i]);
+    printf(&quot;\n&quot;);
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>9. Convert an infix expression into prefix notation (single-character operands; supports +, -, *, /, ^ and parentheses).</h3>
+    <button onclick="toggleCode('q9')">Show/Hide Code</button>
+    <pre id="q9">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+#define MAX 300
+int prec(char c) {
+    if (c == &#x27;^&#x27;) return 3;
+    if (c == &#x27;*&#x27; || c == &#x27;/&#x27;) return 2;
+    if (c == &#x27;+&#x27; || c == &#x27;-&#x27;) return 1;
+    return 0;
+}
+int main() {
+    char infix[MAX], rev[MAX], stack[MAX], post[MAX], prefix[MAX];
+    int i, j = 0, top = -1, k = 0, len;
+    printf(&quot;Enter infix expression: &quot;); fgets(infix, sizeof(infix), stdin);
+    infix[strcspn(infix, &quot;\n&quot;)] = &#x27;\0&#x27;; len = (int)strlen(infix);
+    for (i = len - 1; i &gt;= 0; i--) {
+        if (infix[i] == &#x27;(&#x27;) rev[j++] = &#x27;)&#x27;;
+        else if (infix[i] == &#x27;)&#x27;) rev[j++] = &#x27;(&#x27;;
+        else if (!isspace((unsigned char)infix[i])) rev[j++] = infix[i];
+    }
+    rev[j] = &#x27;\0&#x27;;
+    for (i = 0; rev[i] != &#x27;\0&#x27;; i++) {
+        char c = rev[i];
+        if (isalnum((unsigned char)c)) post[k++] = c;
+        else if (c == &#x27;(&#x27;) stack[++top] = c;
+        else if (c == &#x27;)&#x27;) {
+            while (top &gt;= 0 &amp;&amp; stack[top] != &#x27;(&#x27;) post[k++] = stack[top--];
+            if (top &gt;= 0) top--;
+        } else {
+            while (top &gt;= 0 &amp;&amp; stack[top] != &#x27;(&#x27; &amp;&amp;
+                  (prec(stack[top]) &gt; prec(c) ||
+                  (prec(stack[top]) == prec(c) &amp;&amp; c == &#x27;^&#x27;)))
+                post[k++] = stack[top--];
+            stack[++top] = c;
+        }
+    }
+    while (top &gt;= 0) post[k++] = stack[top--];
+    post[k] = &#x27;\0&#x27;;
+    for (i = k - 1; i &gt;= 0; i--) prefix[k - 1 - i] = post[i];
+    prefix[k] = &#x27;\0&#x27;;
+    printf(&quot;Prefix expression: %s\n&quot;, prefix);
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>10. Convert an infix expression into postfix notation (single-character operands; supports +, -, *, /, ^ and parentheses).</h3>
+    <button onclick="toggleCode('q10')">Show/Hide Code</button>
+    <pre id="q10">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+#define MAX 300
+int prec(char c) {
+    if (c == &#x27;^&#x27;) return 3;
+    if (c == &#x27;*&#x27; || c == &#x27;/&#x27;) return 2;
+    if (c == &#x27;+&#x27; || c == &#x27;-&#x27;) return 1;
+    return 0;
+}
+int main() {
+    char s[MAX], stack[MAX], out[MAX]; int i, top = -1, k = 0;
+    printf(&quot;Enter infix expression: &quot;); fgets(s, sizeof(s), stdin);
+    for (i = 0; s[i] != &#x27;\0&#x27; &amp;&amp; s[i] != &#x27;\n&#x27;; i++) {
+        char c = s[i];
+        if (isspace((unsigned char)c)) continue;
+        if (isalnum((unsigned char)c)) out[k++] = c;
+        else if (c == &#x27;(&#x27;) stack[++top] = c;
+        else if (c == &#x27;)&#x27;) {
+            while (top &gt;= 0 &amp;&amp; stack[top] != &#x27;(&#x27;) out[k++] = stack[top--];
+            if (top &gt;= 0) top--;
+        } else {
+            while (top &gt;= 0 &amp;&amp; stack[top] != &#x27;(&#x27; &amp;&amp;
+                  (prec(stack[top]) &gt; prec(c) ||
+                  (prec(stack[top]) == prec(c) &amp;&amp; c != &#x27;^&#x27;)))
+                out[k++] = stack[top--];
+            stack[++top] = c;
+        }
+    }
+    while (top &gt;= 0) out[k++] = stack[top--];
+    out[k] = &#x27;\0&#x27;;
+    printf(&quot;Postfix expression: %s\n&quot;, out);
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>11. Evaluate a prefix expression containing single-digit non-negative operands and operators +, -, *, and /.</h3>
+    <button onclick="toggleCode('q11')">Show/Hide Code</button>
+    <pre id="q11">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+#define MAX 300
+int main() {
+    char s[MAX]; int st[MAX], top = -1, i;
+    printf(&quot;Enter prefix expression (single digits, no spaces): &quot;);
+    scanf(&quot;%299s&quot;, s);
+    for (i = (int)strlen(s) - 1; i &gt;= 0; i--) {
+        char c = s[i];
+        if (isdigit((unsigned char)c)) st[++top] = c - &#x27;0&#x27;;
+        else if (c == &#x27;+&#x27; || c == &#x27;-&#x27; || c == &#x27;*&#x27; || c == &#x27;/&#x27;) {
+            int a, b;
+            if (top &lt; 1) { printf(&quot;Invalid expression.\n&quot;); return 0; }
+            a = st[top--]; b = st[top--];
+            if (c == &#x27;+&#x27;) st[++top] = a + b;
+            else if (c == &#x27;-&#x27;) st[++top] = a - b;
+            else if (c == &#x27;*&#x27;) st[++top] = a * b;
+            else {
+                if (b == 0) { printf(&quot;Division by zero.\n&quot;); return 0; }
+                st[++top] = a / b;
+            }
+        } else { printf(&quot;Unsupported character.\n&quot;); return 0; }
+    }
+    if (top == 0) printf(&quot;Result = %d\n&quot;, st[top]);
+    else printf(&quot;Invalid expression.\n&quot;);
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>12. Evaluate a postfix expression containing single-digit non-negative operands and operators +, -, *, and /.</h3>
+    <button onclick="toggleCode('q12')">Show/Hide Code</button>
+    <pre id="q12">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+#define MAX 300
+int main() {
+    char s[MAX]; int st[MAX], top = -1, i;
+    printf(&quot;Enter postfix expression (single digits, no spaces): &quot;);
+    scanf(&quot;%299s&quot;, s);
+    for (i = 0; s[i] != &#x27;\0&#x27;; i++) {
+        char c = s[i];
+        if (isdigit((unsigned char)c)) st[++top] = c - &#x27;0&#x27;;
+        else if (c == &#x27;+&#x27; || c == &#x27;-&#x27; || c == &#x27;*&#x27; || c == &#x27;/&#x27;) {
+            int b, a;
+            if (top &lt; 1) { printf(&quot;Invalid expression.\n&quot;); return 0; }
+            b = st[top--]; a = st[top--];
+            if (c == &#x27;+&#x27;) st[++top] = a + b;
+            else if (c == &#x27;-&#x27;) st[++top] = a - b;
+            else if (c == &#x27;*&#x27;) st[++top] = a * b;
+            else {
+                if (b == 0) { printf(&quot;Division by zero.\n&quot;); return 0; }
+                st[++top] = a / b;
+            }
+        } else { printf(&quot;Unsupported character.\n&quot;); return 0; }
+    }
+    if (top == 0) printf(&quot;Result = %d\n&quot;, st[top]);
+    else printf(&quot;Invalid expression.\n&quot;);
+    return 0;
+}
+    </pre>
+  </div>
+  <div class="question">
+    <h3>13. Implement Tower of Hanoi using stacks to represent the three rods.</h3>
+    <button onclick="toggleCode('q13')">Show/Hide Code</button>
+    <pre id="q13">
+#include &lt;stdio.h&gt;
+#define MAX 20
+int rods[3][MAX], top[3] = {-1, -1, -1};
+char names[3] = {&#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27;};
+void push(int rod, int disk) { rods[rod][++top[rod]] = disk; }
+int pop(int rod) { return rods[rod][top[rod]--]; }
+void moveDisk(int from, int to) {
+    int disk = pop(from);
+    push(to, disk);
+    printf(&quot;Move disk %d from rod %c to rod %c\n&quot;, disk, names[from], names[to]);
+}
+void hanoi(int n, int from, int to, int aux) {
+    if (n == 1) { moveDisk(from, to); return; }
+    hanoi(n - 1, from, aux, to);
+    moveDisk(from, to);
+    hanoi(n - 1, aux, to, from);
+}
+int main() {
+    int n, i;
+    printf(&quot;Enter number of disks (1-20): &quot;); scanf(&quot;%d&quot;, &amp;n);
+    if (n &lt; 1 || n &gt; 20) { printf(&quot;Invalid number of disks.\n&quot;); return 0; }
+    for (i = n; i &gt;= 1; i--) push(0, i);
+    printf(&quot;Steps to solve Tower of Hanoi:\n&quot;);
+    hanoi(n, 0, 2, 1);
+    return 0;
+}
+    </pre>
+  </div>
+</body>
+</html>
